@@ -18,6 +18,10 @@
       padding: 15px 30px;
       font-size: 18px;
       cursor: pointer;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
     }
     #message { margin-top: 20px; font-size: 20px; }
   </style>
@@ -50,7 +54,7 @@
       {id: 35, email: "leonardgreeff@glosscalm.com"}
     ];
 
-    // Google Form logging function
+    // Google Form logging function (tested)
     function logEmailToSheet(email) {
       const formUrl = "https://docs.google.com/forms/u/0/d/e/1FAIpQLScKNE8pZe7AhHRuZR-dcH58iTX34dM3J8mJ1_lXSU7s4J5f0Q/formResponse";
       const formData = new FormData();
@@ -60,14 +64,15 @@
         method: "POST",
         body: formData,
         mode: "no-cors"
-      });
+      }).catch(error => console.error("Logging failed:", error));
     }
 
+    // Check user function
     function checkUser() {
       const emailInput = document.getElementById('email').value.trim().toLowerCase();
       const user = users.find(u => u.email === emailInput);
       if (user) {
-        document.getElementById('message').innerText = "User Number: " + user.id;
+        document.getElementById('message').innerText = "Access granted. Redirecting...";
         // Log to Google Sheet
         logEmailToSheet(user.email);
         setTimeout(() => {
