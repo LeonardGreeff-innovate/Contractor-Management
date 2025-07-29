@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -49,12 +50,17 @@
       {id: 35, email: "leonardgreeff@glosscalm.com"}
     ];
 
-    function logAccess(email) {
-      fetch('https://script.google.com/macros/s/AKfycbzgZr5uo3Dj74lenUYRbmjyeJLHHo-MQbKd4Cs1fsC-benP2kA1HtVqIoEe_3ctlcC2dw/exec', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: email })
-      }).catch(err => console.error(err));
+    // Google Form logging function
+    function logEmailToSheet(email) {
+      const formUrl = "https://docs.google.com/forms/u/0/d/e/1FAIpQLScKNE8pZe7AhHRuZR-dcH58iTX34dM3J8mJ1_lXSU7s4J5f0Q/formResponse";
+      const formData = new FormData();
+      formData.append("entry.519245534", email);
+
+      fetch(formUrl, {
+        method: "POST",
+        body: formData,
+        mode: "no-cors"
+      });
     }
 
     function checkUser() {
@@ -62,7 +68,8 @@
       const user = users.find(u => u.email === emailInput);
       if (user) {
         document.getElementById('message').innerText = "User Number: " + user.id;
-        logAccess(user.email);
+        // Log to Google Sheet
+        logEmailToSheet(user.email);
         setTimeout(() => {
           window.location.href = "https://sites.google.com/view/innovate-agri-employee-hub?usp=sharing";
         }, 1000);
