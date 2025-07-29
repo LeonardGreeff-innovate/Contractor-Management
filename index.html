@@ -10,51 +10,100 @@
       background: #f4f4f4;
       margin: 0;
       padding: 0;
-      text-align: center;
     }
     form {
       background: #fff;
       padding: 20px;
       margin: 50px auto;
-      max-width: 500px;
+      max-width: 600px;
       border-radius: 10px;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     }
-    input, select, textarea {
+    h2 {
+      text-align: center;
+      color: #333;
+    }
+    label {
+      font-weight: bold;
+      display: block;
+      margin-top: 10px;
+      color: #444;
+    }
+    input, select, button {
       width: 100%;
       padding: 10px;
-      margin: 10px 0;
+      margin-top: 5px;
+      margin-bottom: 10px;
       border: 1px solid #ccc;
       border-radius: 5px;
     }
     button {
       background: #007bff;
       color: #fff;
-      padding: 10px 20px;
       border: none;
-      border-radius: 5px;
       cursor: pointer;
+      font-size: 16px;
     }
     button:hover {
       background: #0056b3;
     }
+    #response {
+      text-align: center;
+      margin-top: 20px;
+      color: green;
+    }
   </style>
 </head>
 <body>
-  <h2>Contractor Pre-Qualification Portal</h2>
   <form id="contractorForm">
-    <input type="text" name="companyName" placeholder="Company Name" required>
-    <input type="text" name="contactName" placeholder="Contact Person" required>
-    <input type="email" name="email" placeholder="Email" required>
-    <label>Insurance Certificate (PDF):</label>
-    <input type="file" name="insuranceFile" accept=".pdf,.jpg,.jpeg,.png" required>
-    <label>RAMS Document (PDF):</label>
-    <input type="file" name="ramsFile" accept=".pdf,.jpg,.jpeg,.png" required>
+    <h2>Contractor Pre-Qualification Portal</h2>
+    
+    <!-- Contractor Details -->
+    <label>Company Name:</label>
+    <input type="text" name="companyName" required>
+
+    <label>Contact Person:</label>
+    <input type="text" name="contactName" required>
+
+    <label>Email:</label>
+    <input type="email" name="email" required>
+
+    <!-- Health & Safety Policy -->
+    <label>Health & Safety Policy (PDF or Image):</label>
+    <input type="file" name="hsPolicy" accept=".pdf,.jpg,.jpeg,.png" required>
+
+    <!-- Safety Advisory Proof -->
+    <label>Do you have Safety Advisory Services?</label>
+    <select name="safetyAdvisory" required>
+      <option value="Yes">Yes</option>
+      <option value="No">No</option>
+    </select>
+    <label>Upload Proof of Safety Advisory Services (if Yes):</label>
+    <input type="file" name="safetyAdvisoryProof" accept=".pdf,.jpg,.jpeg,.png">
+
+    <!-- SSIP -->
+    <label>SSIP Document (CHAS, SMAS, ConstructionLine, SafeContractor):</label>
+    <input type="file" name="ssipDoc" accept=".pdf,.jpg,.jpeg,.png" required>
+
+    <!-- ISO Certificates -->
+    <label>ISO Accreditation Certificate(s):</label>
+    <input type="file" name="isoCerts" accept=".pdf,.jpg,.jpeg,.png" multiple required>
+
+    <!-- RAMS Documents -->
+    <label>RAMS Document(s):</label>
+    <input type="file" name="ramsDocs" accept=".pdf,.jpg,.jpeg,.png" multiple required>
+
+    <!-- Competency Certificates -->
+    <label>Proof of Competency Certificates and Training Matrix:</label>
+    <input type="file" name="competencyFiles" accept=".pdf,.jpg,.jpeg,.png" multiple required>
+
+    <!-- Insurance Expiry -->
     <label>Insurance Expiry Date:</label>
     <input type="date" name="insuranceExpiry" required>
+
     <button type="submit">Submit</button>
+    <p id="response"></p>
   </form>
-  <p id="response"></p>
 
   <script>
     const form = document.getElementById('contractorForm');
